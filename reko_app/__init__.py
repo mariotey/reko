@@ -19,4 +19,4 @@ app.config['SECRET_KEY'] = "teletubby98"
 # Set up the application context
 app.app_context().push()
 
-from reko import routes
+from reko_app import routes

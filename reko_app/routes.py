@@ -5,7 +5,7 @@ from flask import render_template, redirect, request, make_response
 from sqlalchemy import distinct
 import requests
 
-from reko import app
+from reko_app import app
 
 @app.route("/")
 def index():
