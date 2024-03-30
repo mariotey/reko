@@ -9,4 +9,8 @@ from reko_app import app
 
 @app.route("/")
 def index():
-    return "Hello World! xD"
+    return render_template("index.html")
+
+@app.route("/home")
+def app_home():
+    return render_template("home.html")

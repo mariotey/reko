@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-button {
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .login-button a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="login-container">
+        <div class="login-button">
+            <a href="{{ url_for('app_home') }}">Login</a>
+        </div>
+    </div>
+{% endblock %}
