@@ -7,7 +7,6 @@ storage.
 
 """
 
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,6 +14,11 @@ app = Flask(__name__)
 
 # Configure Secret Key
 app.config['SECRET_KEY'] = "teletubby98"
+
+# Configure the SQLite database URI
+# app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///db.sqlite3')
+
+# db = SQLAlchemy(app)
 
 # Set up the application context
 app.app_context().push()

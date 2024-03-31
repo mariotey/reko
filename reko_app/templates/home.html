@@ -8,11 +8,11 @@
     <!-- File Input / Upload -->
         <p>
             <text>Upload your excel file here</text>
-            <form id="uploadForm">
-                <input type="file" name="file" accept=".xlsx, .xls" />
+            <form id="uploadForm" method="POST" enctype="multipart/form-data" style="margin-bottom: 30px;">
+                <input type="file" name="file-to-save" accept=".xlsx, .xls" />
+                <button>Upload</button>
             </form>
         </p>
-        <button id="uploadButton">Upload File</button>
     <!--  -->
 
     <!-- Metric Input -->
