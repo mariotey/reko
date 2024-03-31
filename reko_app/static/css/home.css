@@ -1,0 +1,43 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.processing-dropdown {
+    margin-bottom: 10px;
+}
+/* Styling for the container div */
+#container {
+    display: flex;
+}
+/* Styling for the chart canvas */
+#chartContainer {
+    display: flex; /* Use Flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping if there are too many charts */
+    justify-content: space-around; /* Evenly space the charts */
+    align-items: center; /* Align charts vertically */
+}
+#chartContainer canvas {
+    margin: 10px; /* Add some margin around each canvas */
+}
+/* Styling for the new data summary div */
+#newDataSummary {
+    padding: 10px;
+    width: 15%;
+    margin-top: 100px;
+    margin-right: 1100px; /* Adjust the margin as needed */
+}
+#dataDisplay {
+    height: 400px; /* Fixed height */
+    overflow: auto; /* Enables scrolling */
+}
