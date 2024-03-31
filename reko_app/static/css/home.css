@@ -1,43 +1,136 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
 }
-th, td {
-    border: 1px solid #ddd;
-    text-align: left;
-    padding: 8px;
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-th {
-    background-color: #f2f2f2;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+.messages {
+    margin: 0;
 }
-.processing-dropdown {
+
+.logout a {
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.logout a:hover {
+    background-color: #0056b3;
+}
+
+/* Head content styles */
+.content_header {
+    padding: 10px 20px;
+}
+
+/* Content styles */
+.content {
+    padding: 0px 20px;
+}
+
+.upload-section h2,
+.metric-input-section h2 {
     margin-bottom: 10px;
 }
-/* Styling for the container div */
-#container {
-    display: flex;
+
+.upload-section,
+.metric-input-section {
+    margin-bottom: 30px;
 }
-/* Styling for the chart canvas */
+
+.metric-input {
+    margin-bottom: 20px;
+}
+
+.metric-input input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.metric-input button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.metric-input button:hover {
+    background-color: #0056b3;
+}
+
+.action-buttons button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background-color: #218838;
+}
+
+.chart-section button {
+    padding: 8px 15px;
+    background-color: #ffc107;
+    color: #212529;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.chart-section button:hover {
+    background-color: #e0a800;
+}
+
+.dropdowns {
+    margin-top: 20px;
+}
+
+.dropdowns select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Chart section styles */
+.chart-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
 #chartContainer {
-    display: flex; /* Use Flexbox for layout */
-    flex-wrap: wrap; /* Allow wrapping if there are too many charts */
-    justify-content: space-around; /* Evenly space the charts */
-    align-items: center; /* Align charts vertically */
+    margin-bottom: 20px;
 }
-#chartContainer canvas {
-    margin: 10px; /* Add some margin around each canvas */
-}
-/* Styling for the new data summary div */
-#newDataSummary {
-    padding: 10px;
-    width: 15%;
-    margin-top: 100px;
-    margin-right: 1100px; /* Adjust the margin as needed */
-}
-#dataDisplay {
-    height: 400px; /* Fixed height */
-    overflow: auto; /* Enables scrolling */
+
+.new-data-summary {
+    margin-top: 20px;
 }

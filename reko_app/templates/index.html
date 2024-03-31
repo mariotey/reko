@@ -1,39 +1,7 @@
 {% extends "layout.html" %}
 
 {% block style %}
-    <style>
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-button {
-            background-color: #007bff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 20px; /* Add spacing between logo and button */
-            transition: background-color 0.3s ease; /* Add smooth transition */
-        }
-
-        .login-button a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .login-button:hover {
-            background-color: #0056b3; /* Darken the button on hover */
-        }
-
-        .logo {
-            width: 250px; /* Adjust the size of the logo */
-            margin-bottom: 20px; /* Add some space below the logo */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css">
 {% endblock %}
 
 {% block body %}
@@ -41,8 +9,24 @@
         <div>
             <img class="logo" src="../static/img/logo.png">
         </div>
-        <div class="login-button">
-            <a href="{{ url_for('app_home') }}">Login</a>
-        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div style = "display: flex; justify-content: center; align-items: center; color: red;">
+                        <p>{{ msg }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="#" method="POST">
+            <p> Username: <input type="text" name="username"/></p>
+            <p> Password: <input type="password" name="password"/></p>
+            <p><input type="submit" value="Login"/></p>
+        </form>
+
+        <a href="{{ url_for('register') }}">Register for a new account</a>
+
     </div>
 {% endblock %}

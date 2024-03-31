@@ -5,72 +5,74 @@
 {% endblock %}
 
 {% block body %}
-    <!-- File Input / Upload -->
-        <p>
-            <text>Upload your excel file here</text>
-            <form id="uploadForm" method="POST" enctype="multipart/form-data" style="margin-bottom: 30px;">
+    <div class="content_header">
+        <div class="header">
+            <div class="messages">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p>{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+            <div class="logout">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <!-- File Input / Upload -->
+        <div class="upload-section">
+            <h2>Upload your Excel file here</h2>
+            <form id="uploadForm" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file-to-save" accept=".xlsx, .xls" />
-                <button>Upload</button>
+                <button class="upload-button">Upload</button>
             </form>
-        </p>
-    <!--  -->
+        </div>
 
-    <!-- Metric Input -->
-        <p>
-            <div>
-                After you've chosen your file, add some general metrics that your survey is measuring
-                <div style="padding-top: 30px;">
-                    <input type="text" id="metricNameInput" placeholder="Metric Name">
-                    <button id="addMetricButton">Add Metric</button>
+        <!-- Metric Input -->
+        <div class="metric-input-section">
+            <h2>Add general metrics for your survey</h2>
+            <div class="metric-input">
+                <input type="text" id="metricNameInput" placeholder="Metric Name">
+                <button id="addMetricButton">Add Metric</button>
+            </div>
+            <div id="metricList"></div>
+        </div>
+
+        <!-- Display Data -->
+        <div class="action-buttons">
+            <button id="displayButton">Display Data</button>
+            <button id="processButton">Process Data</button>
+        </div>
+
+        <!-- Original Data Summary -->
+        <div id="dataSummary" class="data-summary"></div>
+
+        <!-- Dropdowns for data and chart type selection -->
+        <div class="dropdowns">
+            <div id="metricsCheckboxList"></div>
+            <select id="chartTypeDropdown">
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+            </select>
+        </div>
+
+        <!-- Render ChartJS -->
+        <div class="chart-section">
+            <button id="renderChartButton">Render Chart</button>
+            <div id="container" class="chart-container">
+                <div id="chartContainer">
+                    <canvas id="myChart" width="550" height="400"></canvas>
                 </div>
-                <div id="metricList"></div>
+                <div id="newDataSummary" class="new-data-summary"></div>
             </div>
-        </p>
-    <!--  -->
-
-    <!-- Display Data -->
-        <button id="displayButton">Display Data</button>
-
-        <div id="dataDisplay"></div>
-        <button id="processButton">Process Data</button>
-        <!-- Original Data Summary Div -->
-        <div id="dataSummary" style="margin-left: 20px;"></div>
-
-        <!-- Add dropdowns for data and chart type selection -->
-
-        <div id="metricsCheckboxList">
-            <!-- Checkboxes will be added here dynamically -->
         </div>
+    </div>
 
-        <select id="chartTypeDropdown">`
-            <option value="bar">Bar Chart</option>
-            <option value="line">Line Chart</option>
-            <option value="pie">Pie Chart</option>
-            <!-- Add more chart types as needed -->
-        </select>
-    <!--  -->
-
-    <!-- Render ChartJS-->
-        <button id="renderChartButton">Render Chart</button>
-        <!--
-
-        -->
-        <!-- Container div for chart and new data summary -->
-        <div id="container">
-            <!-- Chart canvas div -->
-            <div id="chartContainer">
-                <!-- Canvas for Chart.js -->
-                <canvas id="myChart" width="550" height="550"></canvas>
-            </div>
-            <!-- New Data Summary Div (initially hidden) -->
-            <div id="newDataSummary" style="display: none;"></div>
-        </div>
-    <!--  -->
-
-
-    <!-- Functionality for Metric -->
-        <script src="../static/js/metrics.js"></script>
-    <!--  -->
-
-
+    <!-- JavaScript for Metric -->
+    <script src="../static/js/metrics.js"></script>
 {% endblock %}

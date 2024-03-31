@@ -1,0 +1,58 @@
+/* login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container .logo {
+    display: block;
+    margin: 50px auto;
+    max-width: 50%; /* Ensure image does not exceed container width */
+}
+
+.login-container form {
+    margin-bottom: 20px;
+}
+
+.login-container form p {
+    margin-bottom: 15px;
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"],
+.login-container form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.login-container form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.login-container form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.login-container a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+}

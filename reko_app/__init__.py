@@ -9,11 +9,15 @@ storage.
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from datetime import timedelta
 
 app = Flask(__name__)
 
 # Configure Secret Key
 app.config['SECRET_KEY'] = "teletubby98"
+
+# Configure Session lifetime
+app.permanent_session_lifetime = timedelta(days=1)
 
 # Configure the SQLite database URI
 # app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///db.sqlite3')
