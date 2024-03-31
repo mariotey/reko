@@ -12,11 +12,7 @@ from reko_app import app
 S3_BUCKET_NAME = 'rekos3bucket'
 S3_REGION = 'us-east-1'
 
-s3_client = boto3.client("s3",
-                            aws_access_key_id=keys.aws_access_key_id,
-                            aws_secret_access_key=keys.aws_secret_access_key,
-                            aws_session_token=keys.aws_session_token
-                        )
+s3_client = boto3.client("s3")
 
 #################################################################################################
 
