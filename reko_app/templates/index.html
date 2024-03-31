@@ -4,6 +4,7 @@
     <style>
         .login-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -13,6 +14,8 @@
             background-color: #007bff;
             padding: 10px 20px;
             border-radius: 5px;
+            margin-top: 20px; /* Add spacing between logo and button */
+            transition: background-color 0.3s ease; /* Add smooth transition */
         }
 
         .login-button a {
@@ -21,11 +24,23 @@
             font-weight: bold;
             font-size: 16px;
         }
+
+        .login-button:hover {
+            background-color: #0056b3; /* Darken the button on hover */
+        }
+
+        .logo {
+            width: 250px; /* Adjust the size of the logo */
+            margin-bottom: 20px; /* Add some space below the logo */
+        }
     </style>
 {% endblock %}
 
 {% block body %}
     <div class="login-container">
+        <div>
+            <img class="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+        </div>
         <div class="login-button">
             <a href="{{ url_for('app_home') }}">Login</a>
         </div>
