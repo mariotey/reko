@@ -62,7 +62,6 @@ def register():
 def app_home():
     if "user" in session:
         user = session["user"]
-        flash(f"Welcome, {user}!")
     else:
         flash(f"Error with login!")
         return redirect(url_for("index"))
@@ -76,9 +75,11 @@ def app_home():
             s3_client.upload_fileobj(uploaded_file, S3_BUCKET_NAME, new_filename)
 
             logging.error(f"{uploaded_file.filename} successfully uploaded!")
+            flash(f"{uploaded_file.filename} successfully uploaded!")
 
         except:
             logging.error(f"{uploaded_file.filename} failed to upload")
+            flash(f"{uploaded_file.filename} failed to upload")
 
         return redirect(url_for("app_home"))
 

@@ -2,19 +2,15 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="../static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/table.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 {% endblock %}
 
 {% block body %}
     <div class="content_header">
         <div class="header">
             <div class="messages">
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for msg in messages %}
-                            <p>{{ msg }}</p>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+                <h2>Welcome, {{ user }}!</h2>
             </div>
             <div class="logout">
                 <a href="{{ url_for('logout') }}">Logout</a>
@@ -25,16 +21,34 @@
     <div class="content">
         <!-- File Input / Upload -->
         <div class="upload-section">
-            <h2>Upload your Excel file here</h2>
+            <h3>Upload your Excel file here</h3>
             <form id="uploadForm" action="{{ url_for('app_home') }}" method="POST" enctype="multipart/form-data" >
-                <input type="file" name="file-to-save" accept=".xlsx, .xls" />
+                <input id ="file_input" type="file" name="file-to-save" accept=".xlsx, .xls" />
                 <button class="upload-button">Upload</button>
             </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        <p>{{ msg }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="table-container">
+            <table id="dataTable">
+                <thead>
+                    <!-- Header row will be dynamically generated -->
+                </thead>
+                <tbody>
+                    <!-- Table body will be dynamically generated -->
+                </tbody>
+            </table>
         </div>
 
         <!-- Metric Input -->
         <div class="metric-input-section">
-            <h2>Add general metrics for your survey</h2>
+            <h3>Add general metrics for your survey</h3 >
             <div class="metric-input">
                 <input type="text" id="metricNameInput" placeholder="Metric Name">
                 <button id="addMetricButton">Add Metric</button>
@@ -44,7 +58,6 @@
 
         <!-- Display Data -->
         <div class="action-buttons">
-            <button id="displayButton">Display Data</button>
             <button id="processButton">Process Data</button>
         </div>
 
@@ -75,4 +88,5 @@
 
     <!-- JavaScript for Metric -->
     <script src="../static/js/metrics.js"></script>
+    <script src="../static/js/table.js"></script>
 {% endblock %}
