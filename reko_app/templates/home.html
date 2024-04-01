@@ -35,17 +35,6 @@
             {% endwith %}
         </div>
 
-        <div class="table-container">
-            <table id="dataTable">
-                <thead>
-                    <!-- Header row will be dynamically generated -->
-                </thead>
-                <tbody>
-                    <!-- Table body will be dynamically generated -->
-                </tbody>
-            </table>
-        </div>
-
         <!-- Metric Input -->
         <div class="metric-input-section">
             <h3>Add general metrics for your survey</h3 >
@@ -56,9 +45,21 @@
             <div id="metricList"></div>
         </div>
 
-        <!-- Display Data -->
-        <div class="action-buttons">
-            <button id="processButton">Process Data</button>
+        <div class="table-container">
+            <table id="dataTable">
+                <thead id="dataHeaders">
+                    <!-- Header row will be dynamically generated -->
+                </thead>
+                <thead id="metricHeaders">
+                    <!-- Metric headers will dynamically generate here -->
+                </thead>
+                <thead id="actionHeaders">
+                    <!-- Action headers will dynamically generate here -->
+                </thead>
+                <tbody>
+                    <!-- Table body will be dynamically generated -->
+                </tbody>
+            </table>
         </div>
 
         <!-- Original Data Summary -->
@@ -90,4 +91,8 @@
     <script src="../static/js/enable_upload.js"></script>
     <script src="../static/js/metrics.js"></script>
     <script src="../static/js/table.js"></script>
+
+    <script>
+        console.log(metrics);
+    </script>
 {% endblock %}
