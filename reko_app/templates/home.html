@@ -24,7 +24,7 @@
             <h3>Upload your Excel file here</h3>
             <form id="uploadForm" action="{{ url_for('app_home') }}" method="POST" enctype="multipart/form-data" >
                 <input id ="file_input" type="file" name="file-to-save" accept=".xlsx, .xls" />
-                <button class="upload-button">Upload</button>
+                <button class="upload-button" id="uploadButton" disabled>Upload</button>
             </form>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -86,7 +86,8 @@
         </div>
     </div>
 
-    <!-- JavaScript for Metric -->
+    <!-- Custom JavaScripts -->
+    <script src="../static/js/enable_upload.js"></script>
     <script src="../static/js/metrics.js"></script>
     <script src="../static/js/table.js"></script>
 {% endblock %}
