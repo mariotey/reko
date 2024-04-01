@@ -2,7 +2,7 @@
 import logging
 import boto3
 import uuid
-import key_config as keys
+# import key_config as keys
 from flask import render_template, redirect, request, url_for, session, flash
 
 from reko_app import app
