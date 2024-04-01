@@ -1,0 +1,8 @@
+#metricsCheckboxList {
+    display: flex;
+}
+
+#metricsCheckboxList label {
+    display: flex;
+    margin: 0 20px;
+}
