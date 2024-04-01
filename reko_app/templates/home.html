@@ -62,22 +62,28 @@
             </table>
         </div>
 
-        <!-- Original Data Summary -->
-        <div id="dataSummary" class="data-summary"></div>
+        <div id="metricsContainer"></div>
 
-        <!-- Dropdowns for data and chart type selection -->
-        <div class="dropdowns">
-            <div id="metricsCheckboxList"></div>
-            <select id="chartTypeDropdown">
-                <option value="bar">Bar Chart</option>
-                <option value="line">Line Chart</option>
-                <option value="pie">Pie Chart</option>
-            </select>
-        </div>
-
-        <!-- Render ChartJS -->
+        <!-- Chart Rendering -->
         <div class="chart-section">
+            <h3>Chart Rendering</h3>
+
+            <div id="metricsCheckboxList">
+                <!-- Checkbox for metrics available for plotting will be rendered here -->
+            </div>
+
+            <!-- Dropdowns chart type -->
+            <div class="dropdowns">
+                <select id="chartTypeDropdown">
+                    <option value="bar">Bar Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="pie">Pie Chart</option>
+                </select>
+            </div>
+
             <button id="renderChartButton">Render Chart</button>
+
+            <!-- Render ChartJS -->
             <div id="container" class="chart-container">
                 <div id="chartContainer">
                     <canvas id="myChart" width="550" height="400"></canvas>
@@ -87,11 +93,14 @@
         </div>
     </div>
 
+    <script>
+        let globalTableData;
+    </script>
+
     <!-- Custom JavaScripts -->
     <script src="../static/js/enable_upload.js"></script>
     <script src="../static/js/table.js"></script>
     <script src="../static/js/metrics.js"></script>
-
     <script>
         console.log(metrics);
     </script>

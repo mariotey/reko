@@ -11,26 +11,9 @@ document.getElementById('addMetricButton').addEventListener('click', function() 
 
 function updateMetricList() {
     const metricListDiv = document.getElementById('metricList');
-    metricListDiv.innerHTML = '';
-    metrics.forEach(metric => {
-        metricListDiv.innerHTML += `<div>${metric}</div>`;
-    });
+    metricListDiv.innerHTML = `<div>${metrics.join(', ')}</div>`;
 
-    const file = document.getElementById("file_input").files[0]
-    const reader = new FileReader();
-
-    reader.onload = function(e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, {type: 'array'});
-        const sheetName = workbook.SheetNames[0]; // Assuming only one sheet
-
-        const sheet = workbook.Sheets[sheetName];
-        const tableData = XLSX.utils.sheet_to_json(sheet, {header: 1});
-
-        renderTable(tableData);
-        renderMetricHeaders(tableData[0], metrics);
-        renderActionHeaders(tableData[0]);
-    };
-
-    reader.readAsArrayBuffer(file);
+    renderTable(globalTableData);
+    renderMetricHeaders(globalTableData[0], metrics);
+    renderActionHeaders(globalTableData[0]);
 }
