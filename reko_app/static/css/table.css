@@ -1,24 +1,26 @@
 .table-container {
     max-height: 400px; /* Adjust the maximum height as needed */
     overflow-y: auto;
+    position: relative; /* Set position relative for containing absolutely positioned elements */
 }
 
 #dataTable {
     border-collapse: collapse;
     width: 100%;
+    position: relative; /* Ensure position relative for child sticky elements */
 }
 
-#dataTable th, #dataTable td {
-    padding: 8px;
-    border: 1px solid #ddd;
+#dataHeaders {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Set a higher z-index for the first thead to overlap others */
+    background-color: #808080; /* Grey background for headers */
+    color: #fff; /* White text color for headers */
 }
 
 #dataTable th {
-    background-color: #808080; /* Grey background for headers */
-    color: #fff; /* White text color for headers */
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
 }
 
 #dataTable tbody tr:nth-child(even) {
@@ -27,4 +29,13 @@
 
 #dataTable tbody tr:nth-child(odd) {
     background-color: #ffffff; /* White background for odd rows */
+}
+
+#metricHeaders,
+#actionHeaders {
+    position: sticky;
+    top: 0;
+    background-color: #808080; /* Grey background for headers */
+    color: #fff; /* White text color for headers */
+    z-index: 1; /* Lower z-index for other thead elements */
 }
