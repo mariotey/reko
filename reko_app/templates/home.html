@@ -26,7 +26,7 @@
         <!-- File Input / Upload -->
         <div class="upload-section">
             <h2>Upload your Excel file here</h2>
-            <form id="uploadForm" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" action="{{ url_for('home') }}" method="POST" enctype="multipart/form-data" >
                 <input type="file" name="file-to-save" accept=".xlsx, .xls" />
                 <button class="upload-button">Upload</button>
             </form>
