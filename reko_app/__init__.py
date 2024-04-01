@@ -7,11 +7,13 @@ storage.
 
 """
 
+from datetime import timedelta
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from datetime import timedelta
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Configure Secret Key
 app.config['SECRET_KEY'] = "teletubby98"
