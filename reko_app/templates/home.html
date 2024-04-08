@@ -5,6 +5,12 @@
     <link rel="stylesheet" type="text/css" href="../static/css/table.css">
     <link rel="stylesheet" type="text/css" href="../static/css/checkbox.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <style>
+         .scrollable-div {
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevent line breaks */
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -76,20 +82,18 @@
             <!-- Dropdowns chart type -->
             <div class="dropdowns">
                 <select id="chartTypeDropdown">
-                    <option value="bar">Bar Chart</option>
+                    <option value="bar" selected>Bar Chart</option>
                     <option value="line">Line Chart</option>
                     <option value="pie">Pie Chart</option>
                 </select>
             </div>
 
-            <button id="renderChartButton">Render Chart</button>
+            <button id="renderChartButton" onclick = renderChart()>Render Chart</button>
 
             <!-- Render ChartJS -->
-            <div id="container" class="chart-container">
-                <div id="chartContainer">
-                    <canvas id="myChart" width="550" height="400"></canvas>
-                </div>
-                <div id="newDataSummary" class="new-data-summary"></div>
+            <div id="container" class="chart-container scrollable-div" style="height: 400px;">
+                <div id="chartContainer" style="display:flex; height: 100%;"></div>
+                <!-- <div id="newDataSummary" class="new-data-summary"></div> -->
             </div>
         </div>
     </div>
@@ -102,6 +106,7 @@
     <script src="../static/js/enable_upload.js"></script>
     <script src="../static/js/table.js"></script>
     <script src="../static/js/metrics.js"></script>
+    <script src="../static/js/chartjs.js"></script>
     <script>
         console.log(metrics);
     </script>
