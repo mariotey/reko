@@ -125,6 +125,8 @@ def delete_file(file_id):
     # Retrieve the file object from the database based on the file_id
     file = File.query.get_or_404(file_id)
 
+    s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=file.filename)
+
     # Delete the file from the database
     db.session.delete(file)
     db.session.commit()
