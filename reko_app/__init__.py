@@ -22,9 +22,10 @@ app.config['SECRET_KEY'] = "teletubby98"
 app.permanent_session_lifetime = timedelta(days=1)
 
 # Configure the SQLite database URI
-# app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///db.sqlite3')
+app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///db.sqlite3')
 
-# db = SQLAlchemy(app)
+db = SQLAlchemy()
+db.init_app(app)
 
 # Set up the application context
 app.app_context().push()

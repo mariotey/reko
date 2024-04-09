@@ -21,8 +21,8 @@
         {% endwith %}
 
         <form action="{{ url_for('index') }}" method="POST">
-            <p> Username: <input type="text" name="username"/></p>
-            <p> Password: <input type="password" name="password"/></p>
+            <p> Email: <input type="text" name="email" required/></p>
+            <p> Password: <input type="password" name="password" required/></p>
             <p><input type="submit" value="Login"/></p>
         </form>
 

@@ -33,6 +33,20 @@
                 <input id ="file_input" type="file" name="file-to-save" accept=".xlsx, .xls" />
                 <button class="upload-button" id="uploadButton" disabled>Upload</button>
             </form>
+            &nbsp;
+            <div>Download your uploads:</div>
+            <ul>
+                {% for file in files %}
+                    <li>
+                        <div>
+                            <a href="{{ file.bucket_url }}" download>{{ file.filename }}</a>
+                            <form action="{{ url_for('delete_file', file_id=file.id) }}" method="post" style="display:inline;">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     {% for msg in messages %}
