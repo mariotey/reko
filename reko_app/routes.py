@@ -63,6 +63,7 @@ def register():
 
             db.session.add(user)
             db.session.commit()
+
             print("User added successfully!")
         except IntegrityError as e:
             db.session.rollback()
@@ -95,6 +96,15 @@ def app_home():
         try:
             uploaded_file = request.files["file-to-save"]
             s3_client.upload_fileobj(uploaded_file, S3_BUCKET_NAME, uploaded_file.filename)
+
+            file = File(
+                filename = uploaded_file.filename,
+                owner_email = email,
+                bucket_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{uploaded_file.filename}"
+            )
+
+            db.session.add(file)
+            db.session.commit()
 
             logging.error(f"{uploaded_file.filename} successfully uploaded!")
             flash(f"{uploaded_file.filename} successfully uploaded!")
