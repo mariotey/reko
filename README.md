@@ -17,21 +17,25 @@ The application will be hosted on an AWS EC2 instance, utilizing Gunicorn as the
     ```bash
     source venv/bin/activate
 
-3. Install Dependencies: Use pip to install the required dependencies listed in `requirements.txt`.
+5. Install Dependencies: Use pip to install the required dependencies listed in `requirements.txt`.
    ```bash
    pip install -r requirements.txt
 
-4. Setup the SQLite database with the following interminal commands
+6. Setup the SQLite database with the following interminal commands
     ```bash
     flask shell
     >>> db.create_all()
     >>> exit()
 
-5. Run Gunicorn
+7. Install Gunicorn
+    ```bash
+    pip install gunicorn
+
+8. Run Gunicorn
     ```bash
     gunicorn -b 0.0.0.0:8000 app:app
 
-6. sudo nano to /etc/systemd/system/reko.service and add the following into the file.
+9. sudo nano to /etc/systemd/system/reko.service and add the following into the file.
     ```bash
     [Unit]
     Description=Gunicorn instance for a flask app
@@ -45,24 +49,28 @@ The application will be hosted on an AWS EC2 instance, utilizing Gunicorn as the
     [Install]
     WantedBy=multi-user.target
 
-7. Enable the service
+10. Enable the service
     ```bash
     sudo systemctl daemon-reload
     sudo systemctl start reko
     sudo systemctl enable reko
 
-8. Start Nginx service
+11. Install Nginx
+    ```bash
+    sudo apt-get nginx
+
+12. Start Nginx service
     ```bash
     sudo systemctl start nginx
     sudo systemctl enable nginx
 
-9. Edit the default file in /etc/nginx/sites-available/default and add the following to the top of the file
+13. Edit the default file in /etc/nginx/sites-available/default and add the following to the top of the file
     ```bash
     upstream reko {
         server 127.0.0.1:8000;
     }
 
-10. Add proxy pass for the endpoints
+14. Add proxy pass for the endpoints
     ```bash
     location / {
         proxy_pass http://localhost:8000;
@@ -84,7 +92,7 @@ The application will be hosted on an AWS EC2 instance, utilizing Gunicorn as the
         proxy_pass http://localhost:8000;
     }
 
-11. Restart Nginx
+15. Restart Nginx
     ```bash
     sudo systemctl restart nginx
 
