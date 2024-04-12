@@ -3,8 +3,29 @@ REKO is a Software as a Service (SaaS) platform that offers bespoke solutions to
 
 How to install
 1. Setup an EC2 instance, S3 bucket and CloudFront on AWS
-2. Upload codes onto EC2 instance
+2. git clone codes onto EC2 instance
+3. Create virtual environment
+    ```bash
+    python3 -m venv venv
+4. Activate the virtual environment
+    ```bash
+    source venv/bin/activate
 3. Install Dependencies: Use pip to install the required dependencies listed in `requirements.txt`.
-
    ```bash
    pip install -r requirements.txt
+4. Run Gunicorn
+    ```bash
+    gunicorn -b 0.0.0.0:8000 app:app
+5. sudo nano to /etc/systemd/system/reko.service and add the following into the file.
+    ```bash
+    [Unit]
+    Description=Gunicorn instance for a simple hello world app
+    After=network.target
+    [Service]
+    User=ubuntu
+    Group=www-data
+    WorkingDirectory=/home/ubuntu/helloworld
+    ExecStart=/home/ubuntu/helloworld/venv/bin/gunicorn -b localhost:8000 app:app
+    Restart=always
+    [Install]
+    WantedBy=multi-user.target
