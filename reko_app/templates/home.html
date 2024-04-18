@@ -39,8 +39,8 @@
                 {% for file in files %}
                     <li>
                         <div>
-                            <a href="{{ file.bucket_url }}" download>{{ file.filename }}</a>
-                            <form action="{{ url_for('delete_file', file_id=file.id) }}" method="post" style="display:inline;">
+                            <a href="{{ file.bucket_url }}" download>{{ file.file_name }}</a>
+                            <form action="{{ url_for('delete_file', file_id=file.file_id) }}" method="post" style="display:inline;">
                                 <button type="submit">Delete</button>
                             </form>
                         </div>
