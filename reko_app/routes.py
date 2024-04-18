@@ -1,17 +1,18 @@
 
 import logging
 import boto3
+import requests
 
 # import key_config as keys
 from flask import render_template, redirect, request, url_for, session, flash
-from sqlalchemy.exc import IntegrityError
 
-from reko_app import app, db
-from reko_app.models import User, File
+from reko_app import app
 
 # Configuration for S3 bucket
 S3_BUCKET_NAME = 'rekos3bucket'
 S3_REGION = 'us-east-1'
+
+API_PATH = "https://ptlxa2tfg9.execute-api.us-east-1.amazonaws.com/"
 
 s3_client = boto3.client("s3")
 
@@ -25,13 +26,17 @@ def index():
         email = request.form["email"]
         password = request.form["password"]
 
-        # Perform some database operation
-        user = User.query.filter_by(email=email).first()
+        user_response = requests.get(f"{API_PATH}/getPerson",
+                                     params={
+                                         "user_email": email
+                                         }
+                                    )
 
-        # If authenticated
-        if user != None and user.password == password:
-            session["user"] = user.username
-            session["email"] = user.email
+        user_result = user_response.json()
+
+        if user_response.status_code == 200 and user_result["user_password"] == password:
+            session["user"] = user_result["user_name"]
+            session["email"] = user_result["user_email"]
 
             return redirect(url_for("app_home"))
 
@@ -53,29 +58,19 @@ def register():
             flash ("Passwords did not match!")
             return redirect(url_for("register"))
 
-        # Perform some database operation
-        try:
-            user = User(
-                username=username,
-                email=email,
-                password=password
-            )
+        create_response = requests.post(f"{API_PATH}/createPerson",
+                                        params={"user_email": email,
+                                                "user_name": username,
+                                                "user_password": password
+                                                }
+                                        )
 
-            db.session.add(user)
-            db.session.commit()
+        if create_response.json():
+            logging.error("User added successfully!")
+            flash(f"{username} created successfully!")
+            return redirect(url_for("index"))
 
-            print("User added successfully!")
-        except IntegrityError as e:
-            db.session.rollback()
-            print(f"Error: {e}")
-            # Handle the specific IntegrityError, such as unique constraint violation for username/email
-        except Exception as e:
-            db.session.rollback()
-            print(f"Error: {e}")
-            # Handle other exceptions
-
-        flash(f"{user.username} created successfully!")
-        return redirect(url_for("index"))
+        logging.error("Failed to create user")
 
     return render_template("register.html")
 
@@ -90,46 +85,53 @@ def app_home():
     user = session["user"]
     email = session["email"]
 
-    user_files = File.query.filter_by(owner_email=email).all()
+    files_response = requests.get(f"{API_PATH}/getFileObj",
+                                     params={"user_email": email}
+                                )
+
+    files_result = files_response.json()["result"]
 
     if request.method == "POST":
         try:
             uploaded_file = request.files["file-to-save"]
             s3_client.upload_fileobj(uploaded_file, S3_BUCKET_NAME, uploaded_file.filename)
 
-            file = File(
-                filename = uploaded_file.filename,
-                owner_email = email,
-                bucket_url = f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{uploaded_file.filename}"
-            )
+            dumpfile_response = requests.post(f"{API_PATH}/createFileObj",
+                                            params={"filename": uploaded_file.filename,
+                                                    "owner_email": email,
+                                                    "bucket_url": f"https://{S3_BUCKET_NAME}.s3.amazonaws.com/{uploaded_file.filename}"
+                                                    }
+                                            )
 
-            db.session.add(file)
-            db.session.commit()
+            dumpfile_result = dumpfile_response.json()
 
-            logging.error(f"{uploaded_file.filename} successfully uploaded!")
-            flash(f"{uploaded_file.filename} successfully uploaded!")
-
+            if dumpfile_result:
+                logging.error(f"{uploaded_file.filename} successfully uploaded!")
+            else:
+                logging.error(f"{uploaded_file.filename} failed to upload")
         except:
             logging.error(f"{uploaded_file.filename} failed to upload")
-            flash(f"{uploaded_file.filename} failed to upload")
 
         return redirect(url_for("app_home"))
 
-    return render_template("home.html", user=user, files = user_files)
+    return render_template("home.html", user=user, files = files_result)
 
 #################################################################################################
 
 # Endpoint for deleting a file
 @app.route('/delete_file/<int:file_id>', methods=['POST'])
 def delete_file(file_id):
-    # Retrieve the file object from the database based on the file_id
-    file = File.query.get_or_404(file_id)
+    # Retrieve the file name from the database based on the file_id
+    deletefile_response = requests.post(f"{API_PATH}/deleteFileObj",
+                                        params={"file_id": file_id}
+                                    )
+    deletefile_result = deletefile_response.json()["result"]
 
-    s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=file.filename)
-
-    # Delete the file from the database
-    db.session.delete(file)
-    db.session.commit()
+    if deletefile_result:
+        s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=deletefile_result["result"])
+        logging.error("File Deleted")
+    else:
+        logging.error("Failed to delete file")
 
     # Redirect the user to the page where the file list is displayed
     return redirect(url_for("app_home"))
@@ -140,8 +142,6 @@ def delete_file(file_id):
 def logout():
     flash("Successfully logged out!", "info")
     session.pop("user", None)
-
-    # Perform some database operation
 
     return redirect(url_for("index"))
 
