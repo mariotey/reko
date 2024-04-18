@@ -128,7 +128,7 @@ def delete_file(file_id):
     deletefile_result = deletefile_response.json()["result"]
 
     if deletefile_result:
-        s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=deletefile_result["result"])
+        s3_client.delete_object(Bucket=S3_BUCKET_NAME, Key=deletefile_result[0])
         logging.error("File Deleted")
     else:
         logging.error("Failed to delete file")
